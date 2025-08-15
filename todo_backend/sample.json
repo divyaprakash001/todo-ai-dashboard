@@ -1,0 +1,17 @@
+[
+  {
+    "content": "Followed up with marketing team on campaign progress.",
+    "source_type": "email",
+    "created_at": "2025-08-15T09:00:00Z"
+  },
+  {
+    "content": "Discussed quarterly targets in WhatsApp group.",
+    "source_type": "whatsapp",
+    "created_at": "2025-08-15T10:41:00Z"
+  },
+  {
+    "content": "Received feedback from client on project specs.",
+    "source_type": "meeting_notes",
+    "created_at": "2025-08-14T15:30:00Z"
+  }
+]
