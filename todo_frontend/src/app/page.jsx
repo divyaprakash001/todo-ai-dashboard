@@ -8,7 +8,6 @@ import { useRouter } from "next/navigation";
 import { useAuthStore } from "./store/authStore";
 import { useTodoStore } from "./store/todoStore";
 import TaskForm from "./components/TaskForm";
-import TaskCard from "./components/TaskCard";
 import toast from "react-hot-toast";
 
 export default function Dashboard() {
@@ -85,7 +84,7 @@ export default function Dashboard() {
   if (!bootstrapped) return null;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-6">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-6 ">
       <div className="max-w-5xl mx-auto space-y-6">
 
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">

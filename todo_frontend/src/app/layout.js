@@ -29,7 +29,7 @@ export default function RootLayout({ children }) {
       >
         <ThemeProvider>
           <Navbar />
-          <main className="max-w-6xl mx-auto p-4">{children}</main>
+          <main className="max-w-full mx-auto">{children}</main>
           <Toaster position="top-right" />
         </ThemeProvider>
       </body>
