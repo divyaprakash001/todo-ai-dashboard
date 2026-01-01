@@ -1,7 +1,8 @@
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+const API_URL =
+  process.env.NEXT_PUBLIC_API_URL || "https://todoai-zrrt.onrender.com";
 
 const axiosInstance = axios.create({
   baseURL: `${API_URL}/api`,
@@ -41,7 +42,9 @@ axiosInstance.interceptors.request.use(async (config) => {
       const refresh = getRefresh();
       if (refresh) {
         try {
-          const r = await axios.post(`${API_URL}/api/token/refresh/`, { refresh });
+          const r = await axios.post(`${API_URL}/api/token/refresh/`, {
+            refresh,
+          });
           setTokens(r.data.access, refresh);
           config.headers.Authorization = `Bearer ${r.data.access}`;
         } catch {
@@ -55,7 +58,5 @@ axiosInstance.interceptors.request.use(async (config) => {
 
   return config;
 });
-
-
 
 export default axiosInstance;

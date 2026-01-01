@@ -2,7 +2,8 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://127.0.0.1:8000/api",
+  // baseURL: "http://127.0.0.1:8000/api",
+  baseURL: "https://todoai-zrrt.onrender.com/api",
 });
 
 api.interceptors.request.use(
@@ -13,7 +14,7 @@ api.interceptors.request.use(
     }
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) => Promise.reject(error),
 );
 
 api.interceptors.response.use(
@@ -27,9 +28,13 @@ api.interceptors.response.use(
 
       if (refreshToken) {
         try {
-          const res = await axios.post("http://127.0.0.1:8000/api/token/refresh/", {
-            refresh: refreshToken,
-          });
+          const res = await axios.post(
+            // "http://127.0.0.1:8000/api/token/refresh/",
+            "https://todoai-zrrt.onrender.com/api/token/refresh/",
+            {
+              refresh: refreshToken,
+            },
+          );
           localStorage.setItem("access_token", res.data.access);
           api.defaults.headers.Authorization = `Bearer ${res.data.access}`;
           return api(originalRequest);
@@ -40,7 +45,7 @@ api.interceptors.response.use(
     }
 
     return Promise.reject(error);
-  }
+  },
 );
 
 export default api;
