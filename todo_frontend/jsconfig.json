@@ -8,17 +8,6 @@
   }
 }
 
-{
-  "compilerOptions": {
-    "baseUrl": "src",
-    "paths": {
-      "@/components/*": ["app/components/*"],
-      "@/*": ["*"]
-    }
-  }
-}
-
-
 // {
 //   "compilerOptions": {
 //     "paths": {
