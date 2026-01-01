@@ -1,6 +1,6 @@
 "use client";
 import { create } from "zustand";
-import axiosInstance from "@/utils/axiosInstance";
+import axiosInstance from "utils/axiosInstance";
 
 export const useTodoStore = create((set, get) => ({
   tasks: [],
@@ -33,26 +33,28 @@ export const useTodoStore = create((set, get) => ({
 
   updateTask: async (id, payload) => {
     const { data } = await axiosInstance.patch(`/tasks/${id}/`, payload);
-    set((s) => ({ tasks: s.tasks.map(t => t.id === id ? data : t) }));
+    set((s) => ({ tasks: s.tasks.map((t) => (t.id === id ? data : t)) }));
     return data;
   },
 
   deleteTask: async (id) => {
     await axiosInstance.delete(`/tasks/${id}/`);
-    set((s) => ({ tasks: s.tasks.filter(t => t.id !== id) }));
+    set((s) => ({ tasks: s.tasks.filter((t) => t.id !== id) }));
   },
 
   enhanceTask: async (id) => {
     const { data } = await axiosInstance.post(`/tasks/${id}/ai-enhance/`);
-    set((s) => ({ tasks: s.tasks.map(t => t.id === id ? data.task || data : t) }));
+    set((s) => ({
+      tasks: s.tasks.map((t) => (t.id === id ? data.task || data : t)),
+    }));
     return data;
   },
 
   bulkAI: async () => {
     const { data } = await axiosInstance.post("/ai/bulk/", {});
     if (data?.updated_tasks) {
-      const map = new Map(data.updated_tasks.map(t => [t.id, t]));
-      set((s) => ({ tasks: s.tasks.map(t => map.get(t.id) || t) }));
+      const map = new Map(data.updated_tasks.map((t) => [t.id, t]));
+      set((s) => ({ tasks: s.tasks.map((t) => map.get(t.id) || t) }));
     } else {
       const all = await axiosInstance.get("/tasks/");
       set({ tasks: all.data });
@@ -71,10 +73,9 @@ export const useTodoStore = create((set, get) => ({
     set({ contexts: data });
   },
 
-
   addCategory: async (name) => {
     const { data } = await axiosInstance.post("/categories/", { name });
     set((s) => ({ categories: [data, ...s.categories] }));
     return data;
-  }
+  },
 }));

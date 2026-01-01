@@ -1,10 +1,10 @@
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
-import { jwtDecode } from 'jwt-decode';
-import { saveToken, getToken, removeToken } from '@/utils/token';
-import axios from 'axios';
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
+import { jwtDecode } from "jwt-decode";
+import { saveToken, getToken, removeToken } from "utils/token";
+import axios from "axios";
 
-const API_URL = 'http://localhost:8000/api';
+const API_URL = "http://localhost:8000/api";
 
 export const useAuthStore = create(
   persist(
@@ -24,8 +24,11 @@ export const useAuthStore = create(
 
       login: async (username, password) => {
         try {
-          const res = await axios.post(`http://127.0.0.1:8000/api/token/`, { username, password });
-          localStorage.setItem('access_token', res.data.access)
+          const res = await axios.post(`http://127.0.0.1:8000/api/token/`, {
+            username,
+            password,
+          });
+          localStorage.setItem("access_token", res.data.access);
           saveToken(res.data.access);
           const user = jwtDecode(res.data.access);
           set({ user, token: res.data.access, isAuthenticated: true });
@@ -37,7 +40,11 @@ export const useAuthStore = create(
 
       register: async (username, email, password) => {
         try {
-          await axios.post(`${API_URL}/auth/register/`, { username, email, password });
+          await axios.post(`${API_URL}/auth/register/`, {
+            username,
+            email,
+            password,
+          });
           return true;
         } catch {
           return false;
@@ -47,8 +54,8 @@ export const useAuthStore = create(
       logout: () => {
         removeToken();
         set({ user: null, token: null, isAuthenticated: false });
-      }
+      },
     }),
-    { name: 'auth-store' }
-  )
+    { name: "auth-store" },
+  ),
 );
